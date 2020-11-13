@@ -3,3 +3,9 @@
 
 Test
 Test2
+<<<<<<< HEAD
+Test3
+=======
+Test3
+>>>>>>> 5768261afe0e3fd7a0342149a9b6d6d74f0307f8
+Test4
