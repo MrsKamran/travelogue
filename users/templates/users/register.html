@@ -1,0 +1,12 @@
+<h1>This is an example</h1>
+
+    <div class ="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form }}     
+            <div class="form-group">
+                <button type="submit"> Submit </button>
+            </div>
+        </form>
+
+    </div>
