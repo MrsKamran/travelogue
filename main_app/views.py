@@ -3,6 +3,7 @@ import uuid
 import boto3
 from .models import Posts, Photo
 
+
 #This is the Amazon S3 Add A Photo View
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'travelogue1'
@@ -27,3 +28,8 @@ def add_photo(request, cat_id):
         except:
             print('An error occurred uploading file to S3')
     return redirect('detail', posts_id=posts_id)
+
+def home(request):
+    return render(request, 'home.html')
+
+
