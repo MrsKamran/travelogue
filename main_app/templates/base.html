@@ -70,11 +70,18 @@
                  <a class="navbar-brand" href=""><h1><span class="pe-7s-gleam bounce-in"></span> TRAVELOGUE</h1></a>
             </div>
             <div class="collapse navbar-collapse">
+            {% if user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+            {% else %}
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="">Home</a></li>
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#">Register</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
                 </ul>
+            {% endif %}
             </div>
         </div>
     </header><!--/header-->
