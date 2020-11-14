@@ -2,6 +2,9 @@ from django.shortcuts import render
 import uuid
 import boto3
 from .models import Posts, Photo
+from django.views.generic.edit import CreateView
+
+
 
 
 #This is the Amazon S3 Add A Photo View
@@ -30,6 +33,19 @@ def add_photo(request, cat_id):
     return redirect('detail', posts_id=posts_id)
 
 def home(request):
-    return render(request, 'home.html')
+    #This code gets the last 3 posts in the list
+    posts = Posts.objects.all().order_by('-id')[:3]
+    return render(request, 'home.html', {'posts': posts})
 
+class PostCreate(CreateView):
+    model = Posts
+    fields = ['title', 'city', 'content']
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+def index(request):
+    #This code gets the last 3 posts in the list
+    posts = Posts.objects.all()
+    return render(request, 'index.html', {'posts': posts})

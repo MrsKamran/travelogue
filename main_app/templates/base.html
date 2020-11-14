@@ -73,6 +73,9 @@
             {% if user.is_authenticated %}
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/">Home</a></li>
+                <li><a href="{% url 'index' %}">Reviews</a></li>
+                <li><a href="{% url 'posts_create' %}">Create Post</a></li>
+
                 <li><a href="{% url 'logout' %}">Logout</a></li>
             </ul>
             {% else %}
