@@ -2,19 +2,19 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<h1>Join Today</h1>
+<h1>Login</h1>
 
     <div class ="content-section">
         <form method="POST">
             {% csrf_token %}
             {{ form|crispy }}     
             <div class="form-group">
-                <button type="submit"> Submit </button>
+                <button type="submit"> Login </button>
             </div>
         </form>
         <div class="border-top pt-2">
             <small class="text-muted">
-              Already Have An Account?    <a href="{% url 'login' %}">Sign In</a>
+              Don't have an account? <a href="{% url 'register' %}">Sign Up Now!</a>
             </small>
         </div>
 
