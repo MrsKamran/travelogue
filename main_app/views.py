@@ -5,6 +5,12 @@ from .models import Posts, Photo
 from .forms import ReviewsForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
+import os
+import requests
+from dotenv import load_dotenv
+load_dotenv()
+WEATHER_API_KEY = os.getenv('WEATHER_API_KEY')
+
 
 #This is the Amazon S3 Add A Photo View
 S3_BASE_URL = 'https://s3.ca-central-1.amazonaws.com/'
@@ -39,7 +45,16 @@ def index(request):
 def posts_detail(request, posts_id):
     posts = Posts.objects.get(id=posts_id)
     reviews_form = ReviewsForm()
-    return render(request, 'detail.html', { 'posts': posts, 'reviews_form': reviews_form })
+    weather_url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid='+WEATHER_API_KEY
+    weather_json = requests.get(weather_url.format(posts.city)).json()
+    weather = {
+            'city' : posts.city,
+            'temperature' : weather_json['main']['temp'],
+            'description' : weather_json['weather'][0]['description'],
+            'icon' : weather_json['weather'][0]['icon']
+        }
+
+    return render(request, 'detail.html', { 'posts': posts, 'reviews_form': reviews_form, 'weather':weather })
 
 def add_review(request, posts_id):
      # create a ModelForm instance using the data in request.POST
