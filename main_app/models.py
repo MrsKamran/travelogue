@@ -15,7 +15,7 @@ class Posts(models.Model):
         return self.title
 
 class Reviews(models.Model):
-    date = models.DateField('review date')
+    date = models.DateField(default=datetime.now)
     content = models.TextField(max_length=300)
     posts = models.ForeignKey(Posts, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
