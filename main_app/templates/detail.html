@@ -1,11 +1,7 @@
-
-{% extends 'base2.html' %}
-{% load crispy_forms_tags %}
-{% block content %}
-
+{% extends 'base2.html' %} {% load crispy_forms_tags %} {% block content %}
 
 <h1>{{ posts.title }}</h1>
-
+<br />
 <div class="box">
   <article class="media">
     <div class="media-left">
@@ -42,47 +38,11 @@
       <div class="card-action">
         <!-- Deji plz add ur edit and delete urls here -->
 
-          <a href="{% url 'posts_update' posts.id %}">Edit</a>
-          <a href="{% url 'posts_delete' posts.id %}">Delete</a>
-        </div>
+        <a href="{% url 'posts_update' posts.id %}">Edit</a>
+        <a href="{% url 'posts_delete' posts.id %}">Delete</a>
       </div>
-      <br>
-      {% for photo in posts.photo_set.all %}
-        <img class="responsive-img card-panel" src="{{photo.url}}">
-      {% empty %}
-        <div class="card-panel center-align">No Photos Uploaded</div>
-      {% endfor %}
-      <form action="{% url 'add_photo' posts.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-        {% csrf_token %}
-        {{ form|crispy }}  
-        <input type="file" name="photo-file">
-        <input type="submit" class="btn" value="Upload Photo">
-      </form>
     </div>
-    <div class="col s6">
-        <form action="{% url 'add_review' posts.id %}" method="post">
-            {% csrf_token %}
-            {{ form|crispy }}  
-          <div class="form-group">
-            {{ reviews_form.as_p }}
-            <input type="submit" class="btn" value="Add A Review">
-          </div>
-        </form>
-      <table class="striped">
-        <thead>
-          <tr><th>Date</th><th>Review</th><th>Posted By</th></tr>
-        </thead>
-        <tbody>
-            {% for review in posts.reviews_set.all %}
-              <tr>
-                <td>{{review.date}}</td>
-                <td>{{review.content}}</td>
-                <td>{{review.user}}</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-      </table>
-    </div>
+    <br />
     {% for photo in posts.photo_set.all %}
     <img class="responsive-img card-panel" src="{{photo.url}}" />
     {% empty %}
@@ -99,6 +59,7 @@
       <input type="submit" class="btn" value="Upload Photo" />
     </form>
   </div>
+
   <div class="col s6">
     <form action="{% url 'add_review' posts.id %}" method="post">
       {% csrf_token %} {{ form|crispy }}
@@ -126,6 +87,6 @@
       </tbody>
     </table>
   </div>
-</div>
 
-{% endblock %}
+  {% endblock %}
+</div>
