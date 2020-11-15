@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
 
@@ -15,10 +15,11 @@
         </div>
         <div class="card-action">
         <!-- Deji plz add ur edit and delete urls here -->
-          <a href="">Edit</a>
-          <a href="">Delete</a>
+          <a href="{% url 'posts_update' posts.id %}">Edit</a>
+          <a href="{% url 'posts_delete' posts.id %}">Delete</a>
         </div>
       </div>
+      <br>
       {% for photo in posts.photo_set.all %}
         <img class="responsive-img card-panel" src="{{photo.url}}">
       {% empty %}

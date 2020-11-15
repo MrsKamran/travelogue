@@ -3,7 +3,7 @@ import uuid
 import boto3
 from .models import Posts, Photo
 from .forms import ReviewsForm
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
 #This is the Amazon S3 Add A Photo View
@@ -22,6 +22,14 @@ class PostCreate(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+class PostUpdate(UpdateView):
+  model = Posts
+  fields = ['title', 'city', 'content']
+
+class PostDelete(DeleteView):
+  model = Posts
+  success_url = '/index/'
 
 def index(request):
     #This code gets the last 3 posts in the list

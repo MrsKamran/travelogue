@@ -27,37 +27,6 @@
     <link rel="apple-touch-icon" sizes="114x114" href="images/ico/apple-touch-icon-114x114.png">
     <link rel="apple-touch-icon" sizes="72x72" href="images/ico/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" href="images/ico/apple-touch-icon-57x57.png">
-
-    <script type="text/javascript">
-    jQuery(document).ready(function($){
-	'use strict';
-      	jQuery('body').backstretch([
-	        "static/images/bg/bg1.jpg",
-	        "static/images/bg/bg2.jpg",
-	        "static/images/bg/bg3.jpg",
-            "static/images/bg/bg4.jpg",
-	        "static/images/bg/bg5.jpg",
-	    ], {duration: 5000, fade: 500, centeredY: true });
-
-		$("#mapwrapper").gMap({ controls: false,
-         	scrollwheel: false,
-         	markers: [{
-              	latitude:40.7566,
-				longitude: -73.9863,
-          	icon: { image: "images/marker.png",
-              	iconsize: [44,44],
-          		iconanchor: [12,46],
-          		infowindowanchor: [12, 0] } }],
-          	icon: {
-              	image: "images/marker.png",
-             	iconsize: [26, 46],
-              	iconanchor: [12, 46],
-              	infowindowanchor: [12, 0] },
-         	latitude:40.7566,
-         	longitude: -73.9863,
-          	zoom: 14 });
-    });
-    </script>
 </head><!--/head-->
 <body>
     
@@ -75,6 +44,9 @@
                 {% if user.is_authenticated %}
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/">Home</a></li>
+                    <li><a href="{% url 'index' %}">Reviews</a></li>
+                    <li><a href="{% url 'posts_create' %}">Create Post</a></li>
+    
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                 </ul>
                 {% else %}
@@ -109,7 +81,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-8">
-                    &copy; 2020 Travelogue. All Rights Reserved. <a href="https://templatemag.com/bootstrap-templates/">Bootstrap templates</a> by TemplateMag.
+                    &copy; 2020 Travelogue. All Rights Reserved.
                 </div>
                 <div class="col-sm-4">
                     <ul class="pull-right">

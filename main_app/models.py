@@ -14,6 +14,9 @@ class Posts(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'posts_id': self.id})
+
 class Reviews(models.Model):
     date = models.DateField(default=datetime.now)
     content = models.TextField(max_length=300)
