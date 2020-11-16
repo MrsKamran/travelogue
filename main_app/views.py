@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import uuid
 import boto3
-from .models import Posts, Photo
+from .models import Posts, Photo, Reviews
 from .forms import ReviewsForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import TemplateView, ListView
@@ -66,6 +66,7 @@ def add_review(request, posts_id):
         # don't save the form to the db until it
         # has the post_id assigned
         new_review = form.save(commit=False)
+        new_review.user = request.user
         new_review.posts_id = posts_id
         new_review.save()
     return redirect('detail', posts_id=posts_id)
