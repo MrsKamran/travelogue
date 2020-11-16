@@ -4,6 +4,8 @@ import boto3
 from .models import Posts, Photo
 from .forms import ReviewsForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView, ListView
+from django.db.models import Q
 
 import os
 import requests
@@ -87,3 +89,13 @@ def add_photo(request, posts_id):
             print('An error occurred uploading file to S3')
     return redirect('detail', posts_id=posts_id)
     
+class SearchResultsView(ListView):
+    model = Posts
+    template_name = 'search_results.html'
+    
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = Posts.objects.filter(
+            Q(country__icontains=query) | Q(city__icontains=query)
+        )
+        return object_list
