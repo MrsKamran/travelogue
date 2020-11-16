@@ -1,0 +1,19 @@
+{% extends 'base2.html' %} {% load crispy_forms_tags %} {% block content %}
+
+<br>
+<br>
+<h1>Post For User List</h1>
+
+{% for posts in posts %}
+    <div class="card">
+        <div class="card-content">
+            <p>City: {{ posts.city }}</p>
+            <p>Country: {{ posts.country }}</p>
+            <p>Description: {{ posts.content }}</p>
+            <p>Date: {{ posts.date }}</p>
+            <p>Posted By: {{ posts.user }}</p>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}
