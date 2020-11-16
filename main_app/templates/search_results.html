@@ -1,0 +1,26 @@
+{% extends 'base2.html' %} {% block content %} 
+
+<h1>Search Results</h1>
+
+<ul>
+  {% for post in object_list %}
+  <div class="card">
+    <!-- add this single line below -->
+    <a href="{% url 'detail' post.id %}">
+      <div class="card-content">
+        <span class="card-title">{{ post.title }}</span>
+        <p>Country: {{ post.country }}</p>
+        <p>City: {{ post.city }}</p>
+        <p>Content: {{ post.content }}</p>
+        <p>Date: {{ post.date }}</p>
+        <p>Posted By: {{ post.user }}</p>
+      </div>
+      <!-- and this following one as well -->
+    </a>
+  </div>
+  <br />
+  {% endfor %}
+</ul>
+
+
+ {% endblock %}

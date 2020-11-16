@@ -5,3 +5,4 @@ class ReviewsForm(ModelForm):
   class Meta:
     model = Reviews
     fields = ['date', 'content', 'user']
+

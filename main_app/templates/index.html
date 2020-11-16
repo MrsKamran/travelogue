@@ -1,7 +1,6 @@
 {% extends 'base2.html' %} {% block content %} {% for post in posts %}
 <br /><br /><br />
 <div class="card">
-  <!-- add this single line below -->
   <a href="{% url 'detail' post.id %}">
     <div class="card-content">
       <span class="card-title">{{ post.title }}</span>
@@ -11,7 +10,6 @@
       <p>Date: {{ post.date }}</p>
       <p>Posted By: {{ post.user }}</p>
     </div>
-    <!-- and this following one as well -->
   </a>
 </div>
 <br />

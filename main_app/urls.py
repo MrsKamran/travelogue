@@ -1,10 +1,11 @@
 from django.urls import path
 from . import views
-from .views import PostCreate
+from .views import PostCreate, SearchResultsView
 
 
 urlpatterns = [
   path('', views.home, name='home'),
+  path('search/', SearchResultsView.as_view(), name='search_results'),
   path('index/', views.index, name="index" ),
   path('index/<int:posts_id>/', views.posts_detail, name='detail'),
   path('index/create/', views.PostCreate.as_view(), name='posts_create'),
