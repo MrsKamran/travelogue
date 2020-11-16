@@ -7,6 +7,7 @@ from datetime import datetime
 class Posts(models.Model):
     title = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
     content = models.TextField(max_length=300)
     date = models.DateField(default=datetime.now)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -26,7 +27,6 @@ class Reviews(models.Model):
     def __str__(self):
         return self.content
 
-    # change the default sort
     class Meta:
         ordering = ['-date']
 

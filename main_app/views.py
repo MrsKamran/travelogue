@@ -23,7 +23,7 @@ def home(request):
 
 class PostCreate(CreateView):
     model = Posts
-    fields = ['title', 'city', 'content']
+    fields = ['title', 'city', 'country', 'content']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -31,7 +31,7 @@ class PostCreate(CreateView):
 
 class PostUpdate(UpdateView):
   model = Posts
-  fields = ['title', 'city', 'content']
+  fields = ['title', 'city', 'country', 'content']
 
 class PostDelete(DeleteView):
   model = Posts
