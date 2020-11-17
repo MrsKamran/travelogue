@@ -8,6 +8,7 @@ from django.views.generic import TemplateView, ListView
 from django.db.models import Q
 from django.views.generic import DetailView
 from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 import os
 import requests
@@ -25,7 +26,7 @@ def home(request):
     posts = Posts.objects.all().order_by('-id')[:3]
     return render(request, 'home.html', {'posts': posts})
 
-class PostCreate(CreateView):
+class PostCreate(LoginRequiredMixin, CreateView):
     model = Posts
     fields = ['title', 'city', 'country', 'content']
 
@@ -33,13 +34,29 @@ class PostCreate(CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class PostUpdate(UpdateView):
-  model = Posts
-  fields = ['title', 'city', 'country', 'content']
+class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Posts
+    fields = ['title', 'city', 'country', 'content']
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.user:
+            return True
+        return False
 
-class PostDelete(DeleteView):
-  model = Posts
-  success_url = '/index/'
+class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Posts
+    success_url = '/index/'
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.user:
+            return True
+        return False
 
 def index(request):
     posts = Posts.objects.all()
