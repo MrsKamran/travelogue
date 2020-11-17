@@ -40,7 +40,6 @@ class PostDelete(DeleteView):
   success_url = '/index/'
 
 def index(request):
-    #This code gets the last 3 posts in the list
     posts = Posts.objects.all()
     return render(request, 'index.html', {'posts': posts})
 
