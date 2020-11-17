@@ -1,13 +1,13 @@
-{% extends 'base2.html' %} {% block content %} {% for post in posts %}
+{% extends 'base2.html' %} {% block content %} 
+
+<h1>Travel Stories</h1>
+{% for post in posts %}
 <br /><br /><br />
 <div class="card">
   <a href="{% url 'detail' post.id %}">
     <div class="card-content">
       <span class="card-title">{{ post.title }}</span>
-      <p>Country: {{ post.country }}</p>
-      <p>City: {{ post.city }}</p>
-      <p>Content: {{ post.content }}</p>
-      <p>Date: {{ post.date }}</p>
+      <p>{{ post.city }} , {{ post.country }}</p>
       <p>Posted By: {{ post.user }}</p>
   </a>
     </div>

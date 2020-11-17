@@ -131,9 +131,13 @@ class SearchResultsView(ListView):
         )
         return object_list
 
-def user_index(request,posts_id, user=None):
-        posts1 = Posts.objects.get(id=posts_id)
-        post_owner = posts1.user_id
+def user_index(request, posts_id, user=None):
+        post_owner = Posts.objects.get(id=posts_id).user_id
         posts = Posts.objects.filter(user=post_owner)
-        return render(request, 'user_index.html', {'posts': posts})
+        count_posts = Posts.objects.filter(user=post_owner).count()
+        reviews = Reviews.objects.filter(user=post_owner)
+        count_reviews = Reviews.objects.filter(user=post_owner).count()
+        photo = Photo.objects.filter(id=posts_id)
+        return render(request, 'user_index.html', {'posts': posts, 'count_posts': count_posts, 'count_reviews': count_reviews,'reviews': reviews, 'photo': photo })
+
 
