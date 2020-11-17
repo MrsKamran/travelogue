@@ -29,6 +29,7 @@ class Reviews(models.Model):
 
     class Meta:
         ordering = ['-date']
+    
 
 class Photo(models.Model):
     url = models.CharField(max_length=200)

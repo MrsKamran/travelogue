@@ -13,6 +13,8 @@ urlpatterns = [
   path('index/<int:pk>/update/', views.PostUpdate.as_view(), name='posts_update'),
   path('index/<int:pk>/delete/', views.PostDelete.as_view(), name='posts_delete'),
   path('index/<int:posts_id>/add_review/', views.add_review, name='add_review'),
+  path('index/<int:pk>/reviewupdate/', views.ReviewUpdate.as_view(), name='reviews_update'),
+  path('index/<int:pk>/reviewdelete/', views.ReviewDelete.as_view(), name='reviews_delete'),
   path('index/<int:posts_id>/add_photo/', views.add_photo, name='add_photo'),
 
 ]

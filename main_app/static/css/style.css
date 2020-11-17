@@ -38,6 +38,7 @@ p {
     /*font-family: Raleway, sans-serif;*/
     text-transform: Capitalize !important;
 }
+
 body {
     color: #222;
     background: #f5f5f5;
@@ -132,7 +133,6 @@ blockquote {
 .main-title {
     text-transform: uppercase;
 }
-
 
 /*-----------------------------------------------------------------------------------*/
 

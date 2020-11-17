@@ -6,6 +6,9 @@ from .forms import ReviewsForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
+
+from django.shortcuts import reverse
+
 from django.views.generic import DetailView
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -57,6 +60,15 @@ class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.user:
             return True
         return False
+
+class ReviewUpdate(UpdateView):
+    model = Reviews
+    fields = '__all__'
+    success_url = '/index/'
+
+class ReviewDelete(DeleteView):
+    model = Reviews
+    success_url= '/index/'
 
 def index(request):
     posts = Posts.objects.all()
