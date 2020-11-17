@@ -1,20 +1,52 @@
 {% extends 'base2.html' %} {% load crispy_forms_tags %} {% block content %}
 
-<br>
-<br>
-<h1>Post For User List</h1>
+{% for posts in posts %}
+    {% if forloop.first %}
+        <h1>{{posts.user| capfirst}}'s Page</h1>
+        <h2> ✎{{ count_posts }} Posts | ★{{ count_reviews }} Reviews </h2>
+    {%endif%}
+
+{% endfor %}
+ 
+{% for posts in posts %}
+    {% if forloop.first %}
+        <h3>Posts By {{posts.user| capfirst}} </h3>
+    {%endif%}
+
+{% endfor %}
 
 {% for posts in posts %}
     <div class="card">
+    <a href="{% url 'detail' posts.id %}">
         <div class="card-content">
             <p>City: {{ posts.city }}</p>
             <p>Country: {{ posts.country }}</p>
             <p>Description: {{ posts.content }}</p>
-            <p>Date: {{ posts.date }}</p>
-            <p>Posted By: {{ posts.user }}</p>
+    </a>
+        {% for photo in posts.photo_set.all %}
+            <img class="responsive-img card-panel" src="{{photo.url}}" width="150" height="150">
+        {% endfor %}
         </div>
     </div>
-</br>
 {% endfor %}
+
+{% for posts in posts %}
+    {% if forloop.first %}
+        <h3>Reviews By {{posts.user| capfirst}} </h3>
+    {%endif%}
+
+    {% for review in reviews %}
+    <div class="card">
+    <a href="{% url 'detail' posts.id %}">
+        <div class="card-content">
+            <p>{{review.date}}</p>
+            <p>{{review.content}}</p>
+        </div>
+    </a>
+    </div>
+{% endfor %}
+
+{% endfor %}
+
 
 {% endblock %}
