@@ -34,14 +34,17 @@
         <p>Country: {{ posts.country }}</p>
         <p>Description: {{ posts.content }}</p>
         <p>Date: {{ posts.date }}</p>
+        <a href="{% url 'user_index' posts.id %}">
         <p>Posted By: {{ posts.user }}</p>
+        </a>
       </div>
+
 
     </div>
     <br />
     <div class="card-action">
       <!-- Deji plz add ur edit and delete urls here -->
-      {% if user.is_authenticated %}
+     {% if posts.user == user %}
       <a href="{% url 'posts_update' posts.id %}">Edit</a>
       <a href="{% url 'posts_delete' posts.id %}">Delete</a>
       {% endif %}
@@ -64,6 +67,7 @@
       </center>
       <input type="submit" class="btn" value="Upload Photo" />
     </form>
+
   </div>
 </div>
   <div class="col s6">

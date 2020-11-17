@@ -6,7 +6,13 @@ from .forms import ReviewsForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
+
 from django.shortcuts import reverse
+
+from django.views.generic import DetailView
+from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
 import os
 import requests
 from dotenv import load_dotenv
@@ -23,7 +29,7 @@ def home(request):
     posts = Posts.objects.all().order_by('-id')[:3]
     return render(request, 'home.html', {'posts': posts})
 
-class PostCreate(CreateView):
+class PostCreate(LoginRequiredMixin, CreateView):
     model = Posts
     fields = ['title', 'city', 'country', 'content']
 
@@ -31,13 +37,29 @@ class PostCreate(CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class PostUpdate(UpdateView):
-  model = Posts
-  fields = ['title', 'city', 'country', 'content']
+class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Posts
+    fields = ['title', 'city', 'country', 'content']
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.user:
+            return True
+        return False
 
-class PostDelete(DeleteView):
-  model = Posts
-  success_url = '/index/'
+class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Posts
+    success_url = '/index/'
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.user:
+            return True
+        return False
 
 class ReviewUpdate(UpdateView):
     model = Reviews
@@ -49,7 +71,6 @@ class ReviewDelete(DeleteView):
     success_url= '/index/'
 
 def index(request):
-    #This code gets the last 3 posts in the list
     posts = Posts.objects.all()
     return render(request, 'index.html', {'posts': posts})
 
@@ -109,3 +130,10 @@ class SearchResultsView(ListView):
             Q(country__icontains=query) | Q(city__icontains=query)
         )
         return object_list
+
+def user_index(request,posts_id, user=None):
+        posts1 = Posts.objects.get(id=posts_id)
+        post_owner = posts1.user_id
+        posts = Posts.objects.filter(user=post_owner)
+        return render(request, 'user_index.html', {'posts': posts})
+
