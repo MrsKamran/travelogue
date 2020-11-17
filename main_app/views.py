@@ -6,6 +6,8 @@ from .forms import ReviewsForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
+from django.views.generic import DetailView
+from django.contrib.auth.models import User
 
 import os
 import requests
@@ -100,3 +102,10 @@ class SearchResultsView(ListView):
             Q(country__icontains=query) | Q(city__icontains=query)
         )
         return object_list
+
+def user_index(request,posts_id, user=None):
+        posts1 = Posts.objects.get(id=posts_id)
+        post_owner = posts1.user_id
+        posts = Posts.objects.filter(user=post_owner)
+        return render(request, 'user_index.html', {'posts': posts})
+

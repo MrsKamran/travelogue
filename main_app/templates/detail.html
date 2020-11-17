@@ -34,11 +34,11 @@
         <p>Country: {{ posts.country }}</p>
         <p>Description: {{ posts.content }}</p>
         <p>Date: {{ posts.date }}</p>
+        <a href="{% url 'user_index' posts.id %}">
         <p>Posted By: {{ posts.user }}</p>
+        </a>
       </div>
       <div class="card-action">
-        <!-- Deji plz add ur edit and delete urls here -->
-
         <a href="{% url 'posts_update' posts.id %}">Edit</a>
         <a href="{% url 'posts_delete' posts.id %}">Delete</a>
       </div>
