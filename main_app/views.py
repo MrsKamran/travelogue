@@ -6,7 +6,7 @@ from .forms import ReviewsForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
-
+from django.shortcuts import reverse
 import os
 import requests
 from dotenv import load_dotenv
@@ -38,6 +38,15 @@ class PostUpdate(UpdateView):
 class PostDelete(DeleteView):
   model = Posts
   success_url = '/index/'
+
+class ReviewUpdate(UpdateView):
+    model = Reviews
+    fields = '__all__'
+    success_url = '/index/'
+
+class ReviewDelete(DeleteView):
+    model = Reviews
+    success_url= '/index/'
 
 def index(request):
     #This code gets the last 3 posts in the list
