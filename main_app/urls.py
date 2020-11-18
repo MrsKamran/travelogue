@@ -8,7 +8,6 @@ urlpatterns = [
   path('search/', SearchResultsView.as_view(), name='search_results'),
   path('index/', views.index, name="index" ),
   path('index/<int:posts_id>/user/', views.user_index, name="user_index" ),
-  path('index/<int:posts_id>/user/add_profile_photo/', views.add_profile_photo, name='add_profile_photo'),
   path('index/<int:posts_id>/', views.posts_detail, name='detail'),
   path('index/create/', views.PostCreate.as_view(), name='posts_create'),
   path('index/<int:pk>/update/', views.PostUpdate.as_view(), name='posts_update'),
