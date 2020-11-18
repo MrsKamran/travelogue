@@ -38,6 +38,11 @@ class Photo(models.Model):
     def __str__(self):
         return f"Photo for posts_id: {self.posts_id} @{self.url}"
 
+class DestinationMarker(models.Model):
+    latitude = models.DecimalField(max_digits=12, decimal_places=8)
+    longitude = models.DecimalField(max_digits=12, decimal_places=8)
+    post = models.ForeignKey(Posts, on_delete=models.CASCADE)
+
 
 
 
