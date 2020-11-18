@@ -1,6 +1,6 @@
 var input = document.getElementById("destination");
 const posts_id = JSON.parse(document.getElementById("posts_id").textContent);
-console.log(posts_id);
+
 
 function getCookie(name) {
   let cookieValue = null;
