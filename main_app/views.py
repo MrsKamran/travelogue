@@ -119,7 +119,6 @@ def add_photo(request, posts_id):
             s3.upload_fileobj(photo_file, BUCKET, key)
             # build the full url string
             url = f"{S3_BASE_URL}{BUCKET}/{key}"
-            # we can assign to cat_id or cat (if you have a cat object)
             photo = Photo(url=url, posts_id=posts_id)
             photo.save()
         except:
@@ -166,26 +165,11 @@ def add_profile_photo(request, posts_id):
     return redirect('user_index', posts_id=posts_id)
 
 
-# def markDestinationOnMap(request):
-#     return render(request, 'detail.html')
-
 def saveDestinationOnMap(request, posts_id):
-    print("inside save")
-    print(request.body)
-    print(posts_id)
     posts = Posts.objects.get(id=posts_id)
     if request.is_ajax():
         markerPosition = json.load(request)['markerPosition']
-        print(str(markerPosition["lat"]) +', ' + str(markerPosition["lng"]) )
         destinationMarker = DestinationMarker(latitude=markerPosition["lat"],longitude=markerPosition["lng"],post=posts)
         destinationMarker.save()
         return JsonResponse({'markerPosition':markerPosition})
   
-
-# def showDestinationOnMap(request):
-#     destinationMarker= DestinationMarker.objects.last()
-#     markerPositionLat= float(destinationMarker.latitude)
-#     markerPositionLng= float(destinationMarker.longitude)
-#     print(markerPositionLat)
-#     print(type (markerPositionLat))
-#     return render(request, 'detail.html',{'markerPositionLat':markerPositionLat,'markerPositionLng':markerPositionLng})

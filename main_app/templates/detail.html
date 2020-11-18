@@ -1,5 +1,3 @@
-
-
 {% extends 'base2.html' %} 
 {% load static %}
 
@@ -65,7 +63,6 @@
     </div>
     <br />
     <div class="card-action">
-      <!-- Deji plz add ur edit and delete urls here -->
      {% if posts.user == user %}
       <a href="{% url 'posts_update' posts.id %}">Edit</a>
       <a href="{% url 'posts_delete' posts.id %}">Delete</a>
@@ -75,9 +72,8 @@
   </div>
 </div>
 
-  <!-- Add user auth here -->
-<!-- setMap -->
 {% if posts.user == user %}
+<!-- setMap -->
   <h3>Place Google Marker on your destination</h3>
   <label>Destination City: </label>
   <input type="text" id="destination" name="destination" required/>
@@ -87,7 +83,7 @@
   <script src="{% static 'js/setMap.js' %}" defer></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb32_HX4sD5LUP3EVedNj-XagYfNpJ2gk=&libraries=places"></script>
 {% else %}
-    <!-- getMap -->
+<!-- getMap -->
   <h3>Destination</h1>
   <div id="map"></div>
   {{markerPositionLat|json_script:"markerPositionLat"}}
