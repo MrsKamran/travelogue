@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import uuid
 import boto3
-from .models import Posts, Photo, Reviews
+from .models import Posts, Photo, Reviews, DestinationMarker
 from .forms import ReviewsForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import TemplateView, ListView
@@ -10,6 +10,8 @@ from django.shortcuts import reverse
 from django.views.generic import DetailView
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+import json
+from django.http import JsonResponse
 
 import os
 import requests
@@ -83,8 +85,14 @@ def posts_detail(request, posts_id):
             'description' : weather_json['weather'][0]['description'],
             'icon' : weather_json['weather'][0]['icon']
         }
+    if (posts.user != request.user):
+        destinationMarker= DestinationMarker.objects.get(post=posts_id)
+        markerPositionLat= float(destinationMarker.latitude)
+        markerPositionLng= float(destinationMarker.longitude)
+        return render(request, 'detail.html', { 'posts': posts, 'reviews_form': reviews_form, 'weather':weather, 'markerPositionLat':markerPositionLat,'markerPositionLng':markerPositionLng,'posts_id':posts_id })
+    if (posts.user == request.user):
+        return render(request, 'detail.html', { 'posts': posts, 'reviews_form': reviews_form, 'weather':weather, 'posts_id':posts_id })
 
-    return render(request, 'detail.html', { 'posts': posts, 'reviews_form': reviews_form, 'weather':weather })
 
 def add_review(request, posts_id):
      # create a ModelForm instance using the data in request.POST
@@ -156,3 +164,28 @@ def add_profile_photo(request, posts_id):
             print('An error occurred uploading file to S3')
 
     return redirect('user_index', posts_id=posts_id)
+
+
+# def markDestinationOnMap(request):
+#     return render(request, 'detail.html')
+
+def saveDestinationOnMap(request, posts_id):
+    print("inside save")
+    print(request.body)
+    print(posts_id)
+    posts = Posts.objects.get(id=posts_id)
+    if request.is_ajax():
+        markerPosition = json.load(request)['markerPosition']
+        print(str(markerPosition["lat"]) +', ' + str(markerPosition["lng"]) )
+        destinationMarker = DestinationMarker(latitude=markerPosition["lat"],longitude=markerPosition["lng"],post=posts)
+        destinationMarker.save()
+        return JsonResponse({'markerPosition':markerPosition})
+  
+
+# def showDestinationOnMap(request):
+#     destinationMarker= DestinationMarker.objects.last()
+#     markerPositionLat= float(destinationMarker.latitude)
+#     markerPositionLng= float(destinationMarker.longitude)
+#     print(markerPositionLat)
+#     print(type (markerPositionLat))
+#     return render(request, 'detail.html',{'markerPositionLat':markerPositionLat,'markerPositionLng':markerPositionLng})
