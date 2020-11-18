@@ -1,6 +1,6 @@
 var input = document.getElementById("destination");
 const posts_id = JSON.parse(document.getElementById("posts_id").textContent);
-console.log(posts_id);
+
 
 function getCookie(name) {
   let cookieValue = null;
@@ -51,7 +51,7 @@ if (window.google && input) {
       lat: place.geometry.location.lat(),
       lng: place.geometry.location.lng(),
     };
-    fetch("http://localhost:8100/" + posts_id + "/saveDestinationOnMap", {
+    fetch("http://localhost:8000/" + posts_id + "/saveDestinationOnMap", {
       method: "POST",
       credentials: "same-origin",
       headers: {

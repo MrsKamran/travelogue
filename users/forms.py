@@ -12,6 +12,9 @@ class UserRegistrationForm(UserCreationForm):
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField(required=False)
     username = forms.CharField(required=False)
+    # current_user = request.user
+    # print(current_user)
+
 
     class Meta:
         model = User
