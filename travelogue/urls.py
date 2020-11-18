@@ -24,6 +24,9 @@ urlpatterns = [
     path('', include('main_app.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('profile/', user_views.profile, name ="profile"),
+    path('change-password/', auth_views.PasswordChangeView.as_view(), name ="change_password"),
+    path('change-password-done/', auth_views.PasswordChangeDoneView.as_view(), name ="change_password_done"),
+
     path('register/', user_views.register, name ="register"),
     path('login/', auth_views.LoginView.as_view(), name="login"),
     path('logout/', auth_views.LogoutView.as_view(template_name="registration/logout.html"), name="logout"),
