@@ -17,5 +17,5 @@ urlpatterns = [
   path('index/<int:pk>/reviewupdate/', views.ReviewUpdate.as_view(), name='reviews_update'),
   path('index/<int:pk>/reviewdelete/', views.ReviewDelete.as_view(), name='reviews_delete'),
   path('index/<int:posts_id>/add_photo/', views.add_photo, name='add_photo'),
-  
+  path('<int:posts_id>/saveDestinationOnMap', views.saveDestinationOnMap),  
 ]

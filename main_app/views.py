@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import uuid
 import boto3
-from .models import Posts, Photo, Reviews
+from .models import Posts, Photo, Reviews, DestinationMarker
 from .forms import ReviewsForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import TemplateView, ListView
@@ -10,6 +10,8 @@ from django.shortcuts import reverse
 from django.views.generic import DetailView
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+import json
+from django.http import JsonResponse
 
 import os
 import requests
@@ -83,8 +85,14 @@ def posts_detail(request, posts_id):
             'description' : weather_json['weather'][0]['description'],
             'icon' : weather_json['weather'][0]['icon']
         }
+    if (posts.user != request.user):
+        destinationMarker= DestinationMarker.objects.get(post=posts_id)
+        markerPositionLat= float(destinationMarker.latitude)
+        markerPositionLng= float(destinationMarker.longitude)
+        return render(request, 'detail.html', { 'posts': posts, 'reviews_form': reviews_form, 'weather':weather, 'markerPositionLat':markerPositionLat,'markerPositionLng':markerPositionLng,'posts_id':posts_id })
+    if (posts.user == request.user):
+        return render(request, 'detail.html', { 'posts': posts, 'reviews_form': reviews_form, 'weather':weather, 'posts_id':posts_id })
 
-    return render(request, 'detail.html', { 'posts': posts, 'reviews_form': reviews_form, 'weather':weather })
 
 def add_review(request, posts_id):
      # create a ModelForm instance using the data in request.POST
@@ -111,7 +119,6 @@ def add_photo(request, posts_id):
             s3.upload_fileobj(photo_file, BUCKET, key)
             # build the full url string
             url = f"{S3_BASE_URL}{BUCKET}/{key}"
-            # we can assign to cat_id or cat (if you have a cat object)
             photo = Photo(url=url, posts_id=posts_id)
             photo.save()
         except:
@@ -137,3 +144,14 @@ def user_index(request, posts_id, user=None):
         count_reviews = Reviews.objects.filter(user=post_owner).count()
         photo = Photo.objects.filter(id=posts_id)
         return render(request, 'user_index.html', {'posts': posts, 'count_posts': count_posts, 'count_reviews': count_reviews,'reviews': reviews, 'photo': photo, 'posts1_id': posts_id})
+
+
+
+def saveDestinationOnMap(request, posts_id):
+    posts = Posts.objects.get(id=posts_id)
+    if request.is_ajax():
+        markerPosition = json.load(request)['markerPosition']
+        destinationMarker = DestinationMarker(latitude=markerPosition["lat"],longitude=markerPosition["lng"],post=posts)
+        destinationMarker.save()
+        return JsonResponse({'markerPosition':markerPosition})
+  
