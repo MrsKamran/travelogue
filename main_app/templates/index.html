@@ -9,8 +9,15 @@
       <span class="card-title">{{ post.title }}</span>
       <p>{{ post.city }} , {{ post.country }}</p>
       <p>Posted By: {{ post.user }}</p>
+
+  {% for photo in post.photo_set.all %}
+    <img class="responsive-img card-panel" src="{{photo.url}}" width="150" height="150"/>
+  {% endfor %}
+
   </a>
-    </div>
+  </div>
 </div>
+
+
 <br />
 {% endfor %} {% endblock %}

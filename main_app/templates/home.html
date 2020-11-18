@@ -19,6 +19,9 @@
       <p>Posted By: {{ post.user }}</p>
     </div>
     <!-- and this following one as well -->
+    {% for photo in post.photo_set.all %}
+    <img class="responsive-img card-panel" src="{{photo.url}}" width="150" height="150"/>
+    {% endfor %}
   </a>
 </div>
 <br />

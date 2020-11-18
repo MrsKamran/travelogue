@@ -5,3 +5,4 @@ from django.contrib.auth.models import User
 class About(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     description = models.CharField(max_length=300)
+
