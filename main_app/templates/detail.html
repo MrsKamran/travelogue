@@ -1,6 +1,11 @@
 {% extends 'base2.html' %} {% load crispy_forms_tags %} {% block content %}
 
 <h1>{{ posts.title }}</h1>
+<h3>{{ posts.city }}, {{ posts.country }}</h3>
+<a href="{% url 'user_index' posts.id %}">
+<p>Posted By: {{ posts.user }}</p>
+</a>
+<p>Date: {{ posts.date }}</p>
 <br />
 <div class="box">
   <article class="media">
@@ -28,27 +33,7 @@
 
 <div class="row">
   <div class="col s6">
-    <div class="card">
-      <div class="card-content">
-        <p>City: {{ posts.city }}</p>
-        <p>Country: {{ posts.country }}</p>
-        <p>Description: {{ posts.content }}</p>
-        <p>Date: {{ posts.date }}</p>
-        <a href="{% url 'user_index' posts.id %}">
-        <p>Posted By: {{ posts.user }}</p>
-        </a>
-      </div>
-
-
-    </div>
-    <br />
-    <div class="card-action">
-      <!-- Deji plz add ur edit and delete urls here -->
-     {% if posts.user == user %}
-      <a href="{% url 'posts_update' posts.id %}">Edit</a>
-      <a href="{% url 'posts_delete' posts.id %}">Delete</a>
-      {% endif %}
-    </div>
+  
     {% for photo in posts.photo_set.all %}
     <img class="responsive-img card-panel" src="{{photo.url}}" />
     {% empty %}
@@ -68,6 +53,21 @@
       <input type="submit" class="btn" value="Upload Photo" />
     </form>
 
+    <div class="card">
+      <div class="card-content">
+        <p>{{ posts.content }}</p>
+    
+      </div>
+    </div>
+    <br />
+    <div class="card-action">
+      <!-- Deji plz add ur edit and delete urls here -->
+     {% if posts.user == user %}
+      <a href="{% url 'posts_update' posts.id %}">Edit</a>
+      <a href="{% url 'posts_delete' posts.id %}">Delete</a>
+      {% endif %}
+    </div>
+    
   </div>
 </div>
   <div class="col s6">
@@ -75,9 +75,9 @@
     {% for review in posts.reviews_set.all %}
     <div class="card">
       <div class="card-content">
-        <p>Date: {{ review.date }}</p>
-        <p>Review: {{ review.content }}</p>
+        <p>{{ review.content }}</p>
         <p>Posted by: {{ review.user}}</p>
+        <p>{{ review.date }}</p>
         {% if user.is_authenticated %}
         <a href="{% url 'reviews_update' review.id %}">Edit</a>
         <a href="{% url 'reviews_delete' review.id %}">Delete</a>
