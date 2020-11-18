@@ -137,22 +137,3 @@ def user_index(request, posts_id, user=None):
         count_reviews = Reviews.objects.filter(user=post_owner).count()
         photo = Photo.objects.filter(id=posts_id)
         return render(request, 'user_index.html', {'posts': posts, 'count_posts': count_posts, 'count_reviews': count_reviews,'reviews': reviews, 'photo': photo, 'posts1_id': posts_id})
-
-def add_profile_photo(request, posts_id):
-    # photo-file will be the "name" attribute on the <input type="file">
-    photo_file = request.FILES.get('photo-file', None)
-    if photo_file:
-        s3 = boto3.client('s3')
-        # need a unique "key" for S3 / needs image file extension too
-        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-        # just in case something goes wrong
-        try:
-            s3.upload_fileobj(photo_file, BUCKET, key)
-            # build the full url string
-            url = f"{S3_BASE_URL}{BUCKET}/{key}"
-            photo1 = Photo(url=url, posts_id=posts_id)
-            photo1.save()
-        except:
-            print('An error occurred uploading file to S3')
-
-    return redirect('user_index', posts_id=posts_id)
