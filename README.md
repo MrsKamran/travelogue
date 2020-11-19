@@ -6,6 +6,15 @@ Travelogue is a travel blog that allows users to upload their travel experiences
 When a user creates a post anyone viewing that post can see the current weather for that speific city that the user visited and they are able to see where that city is located on the map. 
 
 ## Screenshot(s)
+<img align="center" src="landing page.png" width="700" height="400"/>
+<img align="center" src="view all posts.png" width="700" height="400"/>
+<img align="center" src="details page.png" width="700" height="400"/>
+<img align="center" src="user information page.png" width="700" height="400"/>
+<img align="center" src="sign in.png" width="700" height="400"/>
+<img align="center" src="register.png" width="700" height="400"/>
+<img align="center" src="change your password.png" width="700" height="400"/>
+
+
 ## Technologies Used
 
 * Python 
