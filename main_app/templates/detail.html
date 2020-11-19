@@ -74,8 +74,8 @@
         <div class="card-action">
       
           {% if posts.user == user %}
-           <a href="{% url 'posts_update' posts.id %}">Edit</a>
-           <a href="{% url 'posts_delete' posts.id %}">Delete</a>
+           <a href="{% url 'posts_update' posts.id %}" style="color: blue;">Edit</a>
+           <a href="{% url 'posts_delete' posts.id %}" style="color: red;">Delete</a>
            {% endif %}
          </div>
       </div>
@@ -116,12 +116,13 @@
       <p>Posted by: {{ review.user}}</p>
       <p>{{ review.date }}</p>
       {% if user.is_authenticated %}
-      <a href="{% url 'reviews_update' review.id %}">Edit</a>
-      <a href="{% url 'reviews_delete' review.id %}">Delete</a>
+      <a href="{% url 'reviews_update' review.id %}" style="color: blue;">Edit</a>
+      <a href="{% url 'reviews_delete' review.id %}" style="color: red;">Delete</a>
       {% endif %}
   </div>
 </br>
     {% endfor %}
+</br>
 </br>
   </div>
     <form action="{% url 'add_review' posts.id %}" method="post">
