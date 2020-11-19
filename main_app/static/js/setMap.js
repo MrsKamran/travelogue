@@ -1,7 +1,6 @@
 var input = document.getElementById("destination");
 const posts_id = JSON.parse(document.getElementById("posts_id").textContent);
 
-
 function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== "") {
@@ -51,16 +50,21 @@ if (window.google && input) {
       lat: place.geometry.location.lat(),
       lng: place.geometry.location.lng(),
     };
-    fetch("http://localhost:8000/" + posts_id + "/saveDestinationOnMap", {
-      method: "POST",
-      credentials: "same-origin",
-      headers: {
-        Accept: "application/json",
-        "X-Requested-With": "XMLHttpRequest",
-        "X-CSRFToken": csrftoken,
-      },
-      body: JSON.stringify({ markerPosition: markerPosition }),
-    })
+    fetch(
+      "https://project-travelogue.herokuapp.com/" +
+        posts_id +
+        "/saveDestinationOnMap",
+      {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+          Accept: "application/json",
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRFToken": csrftoken,
+        },
+        body: JSON.stringify({ markerPosition: markerPosition }),
+      }
+    )
       .then((response) => {
         console.log(response.body);
         return response.json();
