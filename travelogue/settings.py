@@ -141,6 +141,5 @@ EMAIL_HOST_USER = username
 EMAIL_HOST_PASSWORD = emailpassword
 
 
-
-# EMAIL_HOST_USER = os.getenv('EMAIL_USER')
-# EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
+import django_heroku
+django_heroku.settings(locals())

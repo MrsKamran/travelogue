@@ -1,7 +1,6 @@
 var input = document.getElementById("destination");
 const posts_id = JSON.parse(document.getElementById("posts_id").textContent);
 
-
 function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== "") {
@@ -62,14 +61,9 @@ if (window.google && input) {
       body: JSON.stringify({ markerPosition: markerPosition }),
     })
       .then((response) => {
-        console.log(response.body);
         return response.json();
       })
-      .then((data) => {
-        console.log("Success:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      .then((data) => {})
+      .catch((error) => {});
   });
 }

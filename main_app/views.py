@@ -85,13 +85,18 @@ def posts_detail(request, posts_id):
             'description' : weather_json['weather'][0]['description'],
             'icon' : weather_json['weather'][0]['icon']
         }
-    if (posts.user != request.user):
-        destinationMarker= DestinationMarker.objects.get(post=posts_id)
-        markerPositionLat= float(destinationMarker.latitude)
-        markerPositionLng= float(destinationMarker.longitude)
-        return render(request, 'detail.html', { 'posts': posts, 'reviews_form': reviews_form, 'weather':weather, 'markerPositionLat':markerPositionLat,'markerPositionLng':markerPositionLng,'posts_id':posts_id })
-    if (posts.user == request.user):
-        return render(request, 'detail.html', { 'posts': posts, 'reviews_form': reviews_form, 'weather':weather, 'posts_id':posts_id })
+    if posts.user == request.user:
+            return render(request, 'detail.html', { 'posts': posts, 'reviews_form': reviews_form, 'weather':weather, 'posts_id':posts_id,'no_record':True })
+       
+    elif DestinationMarker.objects.filter(post=posts_id).exists():
+            destinationMarker= DestinationMarker.objects.filter(post=posts_id).latest('post')
+            markerPositionLat= float(destinationMarker.latitude)
+            markerPositionLng= float(destinationMarker.longitude)
+            return render(request, 'detail.html', { 'posts': posts, 'reviews_form': reviews_form, 'weather':weather, 'markerPositionLat':markerPositionLat,'markerPositionLng':markerPositionLng,'posts_id':posts_id,'no_record':False })
+    else:
+            return render(request, 'detail.html', { 'posts': posts, 'reviews_form': reviews_form, 'weather':weather, 'posts_id':posts_id,'no_record':True })
+
+     
 
 
 def add_review(request, posts_id):
