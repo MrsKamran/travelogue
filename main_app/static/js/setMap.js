@@ -50,30 +50,20 @@ if (window.google && input) {
       lat: place.geometry.location.lat(),
       lng: place.geometry.location.lng(),
     };
-    fetch(
-      "https://project-travelogue.herokuapp.com/" +
-        posts_id +
-        "/saveDestinationOnMap",
-      {
-        method: "POST",
-        credentials: "same-origin",
-        headers: {
-          Accept: "application/json",
-          "X-Requested-With": "XMLHttpRequest",
-          "X-CSRFToken": csrftoken,
-        },
-        body: JSON.stringify({ markerPosition: markerPosition }),
-      }
-    )
+    fetch("http://localhost:8000/" + posts_id + "/saveDestinationOnMap", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "X-Requested-With": "XMLHttpRequest",
+        "X-CSRFToken": csrftoken,
+      },
+      body: JSON.stringify({ markerPosition: markerPosition }),
+    })
       .then((response) => {
-        console.log(response.body);
         return response.json();
       })
-      .then((data) => {
-        console.log("Success:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      .then((data) => {})
+      .catch((error) => {});
   });
 }

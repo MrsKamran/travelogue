@@ -84,7 +84,7 @@
     
   </div>
 </div>
-{% if posts.user == user %}
+{% if posts.user == user and no_record %}
 <!-- setMap -->
   <h3>Place Google Marker on your destination</h3>
   <label>Destination City: </label>
@@ -94,9 +94,9 @@
   {{posts_id|json_script:"posts_id"}}
   <script src="{% static 'js/setMap.js' %}" defer></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb32_HX4sD5LUP3EVedNj-XagYfNpJ2gk=&libraries=places"></script>
-{% else %}
+{% elif not no_record%}
 <!-- getMap -->
-  <h3>Destination</h1>
+  <h3>Destination</h3>
   <div id="map"></div>
   {{markerPositionLat|json_script:"markerPositionLat"}}
   {{markerPositionLng|json_script:"markerPositionLng"}}
@@ -105,6 +105,8 @@
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb32_HX4sD5LUP3EVedNj-XagYfNpJ2gk=&callback=initMap"
   defer
 ></script> 
+{%else%}
+<h3>Destination on Map coming soon!</h3>
 {% endif %}
 
 <div class="col s6">
