@@ -27,9 +27,9 @@ When a user creates a post anyone viewing that post can see the current weather 
  
 ## Getting Started
 
-Deployed Heroku App Link: https://project-travelogue.herokuapp.com/
-Trello Board Link: https://trello.com/b/0YicLzgX/travelogue-app
-ERD Link: https://lucid.app/lucidchart/c5f153c3-530f-4c01-858a-c328da6641e2/edit?page=0_0#?folder_id=home&browser=icon
+* Deployed Heroku App Link: https://project-travelogue.herokuapp.com/
+* Trello Board Link: https://trello.com/b/0YicLzgX/travelogue-app
+* ERD Link: https://lucid.app/lucidchart/c5f153c3-530f-4c01-858a-c328da6641e2/edit?page=0_0#?folder_id=home&browser=icon
 
 ## Next Steps
 
