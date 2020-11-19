@@ -10,19 +10,19 @@ When a user creates a post anyone viewing that post can see the current weather 
 
 * Python 
 * Django
-* PostreSQL
+* PostgreSQL
+* Postbird
 * HTML 
 * CSS 
+* Bulma
+* Bootstrap
 * JavaScript 
 * jQuery 
-* Bootstrap 
-* Ajax Fetch
-* Bulma 
+* Ajax Fetch API
 * Google Places API 
 * Google Maps JavaScript API 
 * Frontend JavaScript
 * OpenWeatherMap's Weather API 
-* Postbird
 * Amazon Web Services S3
  
 ## Getting Started
@@ -33,4 +33,4 @@ When a user creates a post anyone viewing that post can see the current weather 
 
 ## Next Steps
 
-Some next steps would be is to add a seed file so the data is consistent for everyone in the group. We would have also liked to have a default profile picture for every user and have the option for the user to change their profile picture. Another feature we would like to include are travel recommendations, and this would be generated using an Expedia API.
+Some next steps would be is to add a seed file so the data is consistent for everyone in the group. We would have also liked to have a default profile picture for every user and have the option for the user to change their profile picture. Another feature we would like to include are travel recommendations, and this would be generated using an Expedia API. Another interesting feature could be to implement email confirmation for user registration.
